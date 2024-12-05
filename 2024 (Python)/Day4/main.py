@@ -1,9 +1,3 @@
-def parseInput(filename):
-    inputFile = open(filename)
-    fileLines = inputFile.read().splitlines()
-    inputFile.close()
-    return fileLines
-
 def solvePart1(inputData):
     result = 0
     for yIndex, y in enumerate(inputData):
@@ -52,19 +46,23 @@ def solvePart2(inputData):
 expectedSample1 = 18
 expectedSample2 = 9
 def main():
-    sampleInput = parseInput("sample.txt")
+
+    sampleInput = []
+    inputData = []
+    with open("sample.txt") as file:
+        sampleInput = file.read().splitlines()
+    with open("input.txt") as file:
+        inputData = file.read().splitlines()
+
     sampleResult = solvePart1(sampleInput)
     print(sampleResult)
     if sampleResult == expectedSample1:
-        inputData = parseInput("input.txt")
         result1 = solvePart1(inputData)
         print(result1)
 
-    sampleInput = parseInput("sample.txt")
     sampleResult = solvePart2(sampleInput)
     print(sampleResult)
     if sampleResult == expectedSample2:
-        inputData = parseInput("input.txt")
         result1 = solvePart2(inputData)
         print(result1)
 main()
