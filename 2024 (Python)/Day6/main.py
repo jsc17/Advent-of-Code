@@ -1,19 +1,19 @@
 import time
+from utilities import *
 
 def follow_path(start, grid):
     row_count = len(grid)
     col_count = len(grid[0])
     visited = set()
     curr_row, curr_col = start
-    next_col = 0
-    next_row = -1
+    next_row, next_col = steps_from_direction.get("^")
 
     while True:
         visited.add((curr_row, curr_col))
         if curr_row + next_row < 0 or curr_row + next_row >= row_count or curr_col + next_col < 0 or curr_col + next_col >= col_count:
             break
         if grid[curr_row + next_row][curr_col + next_col] in "O#":
-            next_col, next_row = -next_row, next_col
+            next_row, next_col = grid_cardinal_steps[(grid_cardinal_steps.index((next_row,next_col)) + 1) % 4]
         else:
             curr_row += next_row
             curr_col += next_col 
@@ -37,8 +37,8 @@ def find_looped_path(start, grid):
     col_count = len(grid[0])
     visited = set()
     curr_row, curr_col = start
-    next_col = 0
-    next_row = -1
+    next_row, next_col = steps_from_direction.get("^")
+
     looped = False
     while True:
         if (curr_row, curr_col, next_row, next_col) in visited:
@@ -48,7 +48,7 @@ def find_looped_path(start, grid):
         if curr_row + next_row < 0 or curr_row + next_row >= row_count or curr_col + next_col < 0 or curr_col + next_col >= col_count:
             break
         if grid[curr_row + next_row][curr_col + next_col] in "O#":
-            next_col, next_row = -next_row, next_col
+            next_row, next_col = grid_cardinal_steps[(grid_cardinal_steps.index((next_row,next_col)) + 1) % 4]
         else:
             curr_row += next_row
             curr_col += next_col 
