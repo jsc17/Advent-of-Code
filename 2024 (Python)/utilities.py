@@ -16,3 +16,9 @@ steps_from_direction = {
 }
 
 grid_cardinal_steps = [(-1,0),(0,1),(1,0),(0,-1)]
+def rotate_cardinal_step(current):
+    return grid_cardinal_steps[(grid_cardinal_steps.index(current) + 1) % 4]
+
+grid_steps = [(-1,-1),(-1,0),(-1,1),(0,1),(1,1),(1,0),(1,-1),(0,-1)]
+def rotate_step(current):
+    return grid_steps[(grid_steps.index(current) + 1) % 8]

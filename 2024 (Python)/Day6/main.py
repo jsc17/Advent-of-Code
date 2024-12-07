@@ -13,7 +13,7 @@ def follow_path(start, grid):
         if curr_row + next_row < 0 or curr_row + next_row >= row_count or curr_col + next_col < 0 or curr_col + next_col >= col_count:
             break
         if grid[curr_row + next_row][curr_col + next_col] in "O#":
-            next_row, next_col = grid_cardinal_steps[(grid_cardinal_steps.index((next_row,next_col)) + 1) % 4]
+            next_row, next_col = rotate_cardinal_step((next_row,next_col))
         else:
             curr_row += next_row
             curr_col += next_col 
@@ -48,7 +48,7 @@ def find_looped_path(start, grid):
         if curr_row + next_row < 0 or curr_row + next_row >= row_count or curr_col + next_col < 0 or curr_col + next_col >= col_count:
             break
         if grid[curr_row + next_row][curr_col + next_col] in "O#":
-            next_row, next_col = grid_cardinal_steps[(grid_cardinal_steps.index((next_row,next_col)) + 1) % 4]
+            next_row, next_col = rotate_cardinal_step((next_row,next_col))
         else:
             curr_row += next_row
             curr_col += next_col 
