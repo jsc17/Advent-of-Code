@@ -1,9 +1,9 @@
 import time
 
-def solve_part_one(inputData):
+def solve_part_one(input_data):
     return "Part 1 not done"
 
-def solve_part_two(inputData):
+def solve_part_two(input_data):
     return "Part 2 not done"
 
 expected_sample_one = 0

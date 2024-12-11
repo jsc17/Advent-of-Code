@@ -15,7 +15,7 @@ for file in os.listdir("Template"):
 
 print("Getting input from AOC site")
 with open("../session_id.txt") as session_file:
-    session_id = session_file.read.splitlines()
+    session_id = session_file.read().strip()
     r = requests.get(f'https://adventofcode.com/2024/day/{day.lstrip("0")}/input', cookies={"session": session_id})
 
 with open(f"Day{day}/input.txt", "w") as inputFile:
