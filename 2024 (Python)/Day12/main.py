@@ -1,6 +1,6 @@
 import time
 from itertools import product
-from utilities import grid_cardinal_steps
+from utilities import grid_cardinal_steps, grid_steps
 
 def generate_region(grid, row, col, region_cells, visited):
     visited.add((row, col))
@@ -33,8 +33,24 @@ def solve_part_one(input_data):
         price += len(region[0]) * region[1] 
     return price
 
-# def count_corners(grid, row, col):
-
+def count_corners(grid, row, col):
+    plant = grid[row][col]
+    adjacent_cells = []
+    for direction in grid_steps:
+        next_step = (row + direction[0], col + direction[1])
+        if 0 > next_step[0] or next_step[0] >= len(grid) or 0 > next_step[1] or next_step[1] >= len(grid[0]) or grid[next_step[0]][next_step[1]] != plant:
+            adjacent_cells.append(True)
+        else:
+            adjacent_cells.append(False)
+    corners = 0
+    for x in range(4):
+        if (not adjacent_cells[1 + (x * 2)] and not adjacent_cells[-1 + (x * 2)]) and adjacent_cells[0 + (x * 2)]:
+            corners += 1
+        if adjacent_cells[1 + (x * 2)] and adjacent_cells[-1 + (x * 2)]:
+            corners += 1
+    if corners >= 5:
+        print(f"{(row,col)} - {corners} corners")
+    return corners
 
 def solve_part_two(input_data):
     grid = [list(x for x in line) for line in input_data]
@@ -46,10 +62,18 @@ def solve_part_two(input_data):
             generate_region(grid, row, col,new_region, visited)
             regions.append(new_region)
 
-    return "part 2 not done"
+    price = 0
+    for region in regions:
+        sides = 0
+        for cell in region:
+            sides += count_corners(grid, cell[0], cell[1])
+        print(f"{len(region)} * {sides} = {len(region) * sides}")
+        price += len(region) * sides
+    return price
 
 expected_sample_one = 1930
 expected_sample_two = 1206
+
 def main():
     start_time = time.perf_counter()
     sample_input = []
